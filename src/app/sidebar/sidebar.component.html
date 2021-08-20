@@ -1,0 +1,34 @@
+<div class="logo">
+    <button class="btn btn-simple" style="border-radius: 0px;">Logo</button>
+</div>
+
+<div class="sidebar-wrapper">
+    <ul class="nav" style="padding-top: 10px;">
+        <li  routerLinkActive="active" *ngFor="let menuitem of menuItems">
+            <!--If is a single link-->
+            <a  class="nav-link nav-new-link"[routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
+                <i class="{{menuitem.icontype}}" style="color: blue;"></i>
+                <p>{{menuitem.title}}</p>
+            </a>
+            <!--If it have a submenu-->
+            <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub'">
+                <i class="{{menuitem.icontype}}" style="color: blue;"></i>
+                <p class="btn btn-style">{{menuitem.title}}<b class="caret"></b></p>
+            </a>
+
+            <!--Display the submenu items-->
+            <div id="{{menuitem.collapse}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+                <ul class="nav">
+                    <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                        <a [routerLink]="[menuitem.path, childitem.path]">
+                            <span class="sidebar-mini-icon">{{childitem.ab}}</span>
+                            <span class="sidebar-normal">{{childitem.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    
+    <button class="btn btn-simple" style="align-items: center;margin-top: 190px;margin-left: 45px;"><i class="nc-icon nc-button-power fa-rotate-90"></i> Logout </button> 
+</div>
